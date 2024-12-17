@@ -24,6 +24,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
   void _refreshData() async {
     final data = await SQLHelper.getItems(widget.userId);
+
+    print("[ARI] data: $data");
+
     setState(() {
       _pamans = data;
       _isLoading = false;
@@ -39,6 +42,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void _showForm(int? id) {
+    print("[ARI] id: $id");
+
     showModalBottomSheet(
       context: context,
       elevation: 5,

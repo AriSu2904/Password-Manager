@@ -6,7 +6,9 @@ class PasswordForm extends StatefulWidget {
   final Function onRefresh;
   final int userId;
 
-  const PasswordForm({Key? key, this.id, required this.userId, required this.onRefresh}) : super(key: key);
+  const PasswordForm(
+      {Key? key, this.id, required this.userId, required this.onRefresh})
+      : super(key: key);
 
   @override
   _PasswordFormState createState() => _PasswordFormState();
@@ -27,16 +29,21 @@ class _PasswordFormState extends State<PasswordForm> {
   }
 
   void _loadExistingData() async {
-    final existingData = await SQLHelper.getItem(widget.id!);
-    _appNameController.text = existingData[0]['appName'];
-    _usernameController.text = existingData[0]['username'];
-    _passwordController.text = existingData[0]['password'];
+    final existingData = await SQLHelper.getItems(widget.userId);
+
+    if (widget.id != null) {
+      final item = existingData.firstWhere((data) => data['id'] == widget.id,
+          orElse: () => {});
+      _appNameController.text = item['appName'];
+      _usernameController.text = item['username'];
+      _passwordController.text = item['password'];
+    }
   }
 
   Future<void> _handleSubmit() async {
     if (widget.id == null) {
-      await SQLHelper.createItem(
-          _appNameController.text, widget.userId, _usernameController.text, _passwordController.text);
+      await SQLHelper.createItem(_appNameController.text, widget.userId,
+          _usernameController.text, _passwordController.text);
     } else {
       await SQLHelper.updateItem(widget.id!, _appNameController.text,
           _usernameController.text, _passwordController.text);

@@ -21,7 +21,9 @@ class SQLHelper {
         userId INTEGER NOT NULL,
         appName TEXT,
         username TEXT,
-        password TEXT
+        password TEXT,
+        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (userId) REFERENCES users(userId)
       )
       """);
   }
@@ -51,12 +53,7 @@ class SQLHelper {
 
   static Future<List<Map<String, dynamic>>> getItems(int id) async {
     final db = await SQLHelper.db();
-    return db.query('paman', where: "id = ?", whereArgs: [id]);
-  }
-
-  static Future<List<Map<String, dynamic>>> getItem(int id) async {
-    final db = await SQLHelper.db();
-    return db.query('paman', where: "id = ?", whereArgs: [id], limit: 1);
+    return db.query('paman', where: "userId = ?", whereArgs: [id]);
   }
 
   static Future<int> updateItem(int id, String appName, String username, String password) async {

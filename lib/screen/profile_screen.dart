@@ -35,6 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: const Text('Profile'),
         backgroundColor: Colors.orange,
@@ -58,12 +59,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               CircleAvatar(
                                 radius: 50,
-                                backgroundImage: AssetImage('assets/profile_picture.png'),
+                                backgroundImage:
+                                    AssetImage('assets/profile_picture.png'),
                               ),
                               const SizedBox(height: 20),
                               Text(
                                 'Username: ${_user!['username']}',
-                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 10),
                               Text(
